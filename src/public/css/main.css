@@ -1,0 +1,26 @@
+#gnav {
+    max-height: 5.5%;
+}
+
+.message {
+    position: absolute;
+    top: 10%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+
+    transform: translate(-50%, -10%); /* This is a shorthand of
+                                         translateX(-50%) and translateY(-50%) */
+    z-index: 999;
+}
+
+.modal-dark {
+    background-color: #343a40;
+    color: whitesmoke;
+    border-bottom: 1px solid #212427;
+}
+
+.modal-dark > .modal-header {
+    border-bottom: 1px solid #212427;
+}
+.modal-dark > .modal-footer {
+    border-top: 1px solid #212427;
+}

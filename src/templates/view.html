@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>GoNotes - {{.Note.ID}}</title>
+        <style type="text/css" media="screen">
+            #editor { 
+                position: absolute;
+                top: 6.5%;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <script src="/assets/js/bootstrap/bootstrap.js"></script>
+    </head>
+    <body>
+        {{if .Messages }}
+            {{range $val := .Messages}}
+                <div class="message alert {{$val.Class}} alert-dismissible fade show" role="alert">
+                    <strong>{{$val.Prefix}}</strong> {{$val.Text}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {{end}}
+
+            <script>
+                setTimeout(() => {
+                    let messages = document.getElementsByClassName("message");
+                    for(let i = 0; i < messages.length; i++) {
+                        messages[i].remove();
+                    }
+                }, 3000);
+            </script>
+        {{end}}
+        <nav id="gnav" class="navbar navbar-light bg-light justify-content-between">
+            <a href="/" class="navbar-brand">GoNotes</a>
+            <div class="form-inline pb-3">
+                <span class="navbar-text m-1">Theme </span><select class="custom-select" id="theme"><optgroup label="Bright"><option value="ace/theme/textmate">TextMate</option><option value="ace/theme/chrome">Chrome</option><option value="ace/theme/clouds">Clouds</option><option value="ace/theme/crimson_editor">Crimson Editor</option><option value="ace/theme/dawn">Dawn</option><option value="ace/theme/dreamweaver">Dreamweaver</option><option value="ace/theme/eclipse">Eclipse</option><option value="ace/theme/github">GitHub</option><option value="ace/theme/iplastic">IPlastic</option><option value="ace/theme/solarized_light">Solarized Light</option><option value="ace/theme/tomorrow">Tomorrow</option><option value="ace/theme/xcode">Xcode</option><option value="ace/theme/kuroir">Kuroir</option><option value="ace/theme/katzenmilch">KatzenMilch</option><option value="ace/theme/sqlserver">SQL Server</option></optgroup><optgroup label="Dark"><option value="ace/theme/ambiance">Ambiance</option><option value="ace/theme/chaos">Chaos</option><option value="ace/theme/clouds_midnight">Clouds Midnight</option><option value="ace/theme/dracula">Dracula</option><option value="ace/theme/cobalt">Cobalt</option><option value="ace/theme/gruvbox">Gruvbox</option><option value="ace/theme/gob">Green on Black</option><option value="ace/theme/idle_fingers">idle Fingers</option><option value="ace/theme/kr_theme">krTheme</option><option value="ace/theme/merbivore">Merbivore</option><option value="ace/theme/merbivore_soft">Merbivore Soft</option><option value="ace/theme/mono_industrial">Mono Industrial</option><option value="ace/theme/monokai">Monokai</option><option value="ace/theme/nord_dark">Nord Dark</option><option value="ace/theme/pastel_on_dark">Pastel on dark</option><option value="ace/theme/solarized_dark">Solarized Dark</option><option value="ace/theme/terminal">Terminal</option><option value="ace/theme/tomorrow_night">Tomorrow Night</option><option value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</option><option value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</option><option value="ace/theme/tomorrow_night_eighties">Tomorrow Night 80s</option><option value="ace/theme/twilight">Twilight</option><option value="ace/theme/vibrant_ink">Vibrant Ink</option></optgroup></select>
+                {{if .Note.UserIsCreator}}
+                    <form action="/delete_note/" method="POST">
+                        <input type="hidden" value="{{.Note.ID}}" name="noteId">
+                        <button class="btn btn-danger m-2 my-2 my-sm-0" type="submit">Delete Note</button>
+                    </form>
+                {{end}}
+                <a class="btn btn-info m-2 mb-5 my-2 my-sm-0" id="downloadContent" download href="">Download Note</a>
+                <button class="btn btn-info m-2 mb-5 my-2 my-sm-0" id="editNote">Edit Note</button>
+                <h5 class="ml-3 navbar-text">{{.Note.Views}} Views</h5>             
+            </div>
+        </nav>
+
+        <div id="editor">{{.Note.Content}}</div>
+
+        <script src="/assets/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/assets/js/viewer.js" type="text/javascript" charset="utf-8"></script>
+
+        <script>
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/textmate");
+
+            editor.session.setMode({{.Note.Lang}});
+            // Toggle line numbers
+            if({{.Note.Lang}} == "ace/mode/text") {
+                editor.setOption("showLineNumbers", false);
+            } else {
+                editor.setOption("showLineNumbers", true);
+            }
+            
+            editor.setReadOnly(true);
+
+            {{if .Note.UserIsCreator}}
+                localStorage.removeItem("editorContent");
+            {{end}}
+
+        </script>
+    </body>
+</html>
+

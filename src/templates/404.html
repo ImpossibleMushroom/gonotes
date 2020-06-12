@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/assets/css/bootstrap/bootstrap.css">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <script src="/assets/js/bootstrap/bootstrap.js"></script>
+    </head>
+
+    <!------ Include the above in your HEAD tag ---------->
+    <style>
+        .move-down {
+            position: absolute;
+            top: 25%;  /* position the top  edge of the element at the middle of the parent */
+            left: 50%; /* position the left edge of the element at the middle of the parent */
+
+            transform: translate(-50%, -25%);
+        }
+    </style>
+
+    <body>
+        <div class="move-down">
+            <div class="d-flex justify-content-center align-items-center" id="main">
+                <h1 class="mr-3 pr-3 align-top border-right inline-block align-content-center">404</h1>
+                <div class="inline-block align-middle">
+                    <h2 class="font-weight-normal lead" id="desc">{{.URL}} was not found.</h2>
+                    <a href="/">Go Home</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
