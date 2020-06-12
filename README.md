@@ -1,6 +1,6 @@
 # GoNotes
 
-GoNotes is a self hostable alternative to sites like Hastebin / Pastebin. It is arguable no where near as feature rich nor supported as Hastebin nor Pastebin. This project was an easy way for me to learn about web servers in Golang.
+GoNotes is a self hostable alternative to sites like Hastebin / Pastebin. It is no where near as feature rich nor supported as Hastebin nor Pastebin. This project was an easy way for me to learn about web servers in Golang.
 
 ## Installation
 
@@ -15,7 +15,7 @@ go build main.go
 ```
 Then run the appropriate output file.
 
-You'll need to download and move the appropiate [ACE Editor](https://github.com/ajaxorg/ace) and [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/download/) releases to the `/src/public/css` and `/src/public/js` folders
+You'll need to download and move the appropiate [ACE Editor](https://github.com/ajaxorg/ace-builds/) and [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/download/) releases to the `/src/public/css` and `/src/public/js` folders
 
 ## Database cleaner
 
